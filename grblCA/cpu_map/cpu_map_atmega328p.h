@@ -47,7 +47,7 @@
 #define X_DIRECTION_BIT 5                                                                                                  // Uno Digital Pin 5
 #define Y_DIRECTION_BIT 6                                                                                                  // Uno Digital Pin 6
 #define Z_DIRECTION_BIT 7                                                                                                  // Uno Digital Pin 7
-#define Z_DIRECTION_BIT 10                                                                                                 // Uno Digital Pin 10, 4th Axis Direction
+#define E_DIRECTION_BIT 10                                                                                                 // Uno Digital Pin 10, 4th Axis Direction
 #define DIRECTION_MASK ((1 << X_DIRECTION_BIT) | (1 << Y_DIRECTION_BIT) | (1 << Z_DIRECTION_BIT) | (1 << E_DIRECTION_BIT)) // All direction bits
 
 // Define stepper driver enable/disable output pin.
@@ -64,7 +64,7 @@
 #define X_LIMIT_BIT 3
 #define Y_LIMIT_BIT 3
 #define Z_LIMIT_BIT 3
-#define E_LIMIT_BIT 3 // All limits assigned to Arduino Uno Digital Pin 11
+#define E_LIMIT_BIT 3 // All limit switches assigned to Arduino Uno Digital Pin 11
 
 #define LIMIT_MASK ((1 << X_LIMIT_BIT) | (1 << Y_LIMIT_BIT) | (1 << Z_LIMIT_BIT) | (1 << E_LIMIT_BIT)) // All limit bits
 #define LIMIT_INT PCIE0                                                                                // Pin change interrupt enable pin

@@ -136,6 +136,6 @@ uint16_t get_step_pin_mask(uint8_t i);
 uint16_t get_direction_pin_mask(uint8_t i);
 
 // Returns the limit pin mask according to Grbl's internal axis numbering
-uint8_t get_limit_pin_mask(uint8_t i);
+uint16_t get_limit_pin_mask(uint8_t i);
 
 #endif
