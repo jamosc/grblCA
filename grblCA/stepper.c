@@ -369,8 +369,8 @@ ISR(TIMER1_COMPA_vect)
     }
   }
 
-  // Check probing state.
-  probe_state_monitor();
+  // // Check probing state.
+  // probe_state_monitor();
 
   // Reset step out bits.
   st.step_outbits = 0;

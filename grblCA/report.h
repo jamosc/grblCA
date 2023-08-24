@@ -95,8 +95,8 @@ void report_echo_line_received(char *line);
 // Prints realtime status report
 void report_realtime_status();
 
-// Prints recorded probe position
-void report_probe_parameters();
+// // Prints recorded probe position
+// void report_probe_parameters();
 
 // Prints Grbl NGC parameters (coordinate offsets, probe)
 void report_ngc_parameters();

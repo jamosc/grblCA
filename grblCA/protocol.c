@@ -244,10 +244,10 @@ void protocol_execute_realtime()
       {
         report_alarm_message(ALARM_ABORT_CYCLE);
       }
-      else if (rt_exec & EXEC_ALARM_PROBE_FAIL)
-      {
-        report_alarm_message(ALARM_PROBE_FAIL);
-      }
+      // else if (rt_exec & EXEC_ALARM_PROBE_FAIL)
+      // {
+      //   report_alarm_message(ALARM_PROBE_FAIL);
+      // }
       else if (rt_exec & EXEC_ALARM_HOMING_FAIL)
       {
         report_alarm_message(ALARM_HOMING_FAIL);
@@ -374,21 +374,21 @@ void protocol_execute_realtime()
           if ((sys.state == STATE_IDLE) || ((sys.state & (STATE_HOLD | STATE_MOTION_CANCEL)) && (sys.suspend & SUSPEND_ENABLE_READY)))
           {
             // Re-energize powered components, if disabled by SAFETY_DOOR.
-            if (sys.suspend & SUSPEND_ENERGIZE)
-            {
-              // Delayed Tasks: Restart spindle and coolant, delay to power-up, then resume cycle.
-              if (gc_state.modal.spindle != SPINDLE_DISABLE)
-              {
-                spindle_set_state(gc_state.modal.spindle, gc_state.spindle_speed);
-                delay_ms(SAFETY_DOOR_SPINDLE_DELAY); // TODO: Blocking function call. Need a non-blocking one eventually.
-              }
-              if (gc_state.modal.coolant != COOLANT_DISABLE)
-              {
-                coolant_set_state(gc_state.modal.coolant);
-                delay_ms(SAFETY_DOOR_COOLANT_DELAY); // TODO: Blocking function call. Need a non-blocking one eventually.
-              }
-              // TODO: Install return to pre-park position.
-            }
+            // if (sys.suspend & SUSPEND_ENERGIZE)
+            // {
+            //   // Delayed Tasks: Restart spindle and coolant, delay to power-up, then resume cycle.
+            //   if (gc_state.modal.spindle != SPINDLE_DISABLE)
+            //   {
+            //     spindle_set_state(gc_state.modal.spindle, gc_state.spindle_speed);
+            //     delay_ms(SAFETY_DOOR_SPINDLE_DELAY); // TODO: Blocking function call. Need a non-blocking one eventually.
+            //   }
+            //   if (gc_state.modal.coolant != COOLANT_DISABLE)
+            //   {
+            //     coolant_set_state(gc_state.modal.coolant);
+            //     delay_ms(SAFETY_DOOR_COOLANT_DELAY); // TODO: Blocking function call. Need a non-blocking one eventually.
+            //   }
+            //   // TODO: Install return to pre-park position.
+            // }
             // Start cycle only if queued motions exist in planner buffer and the motion is not canceled.
             if (plan_get_current_block() && bit_isfalse(sys.suspend, SUSPEND_MOTION_CANCEL))
             {
@@ -417,11 +417,11 @@ void protocol_execute_realtime()
         {
           // Hold complete. Set to indicate ready to resume.  Remain in HOLD or DOOR states until user
           // has issued a resume command or reset.
-          if (sys.suspend & SUSPEND_ENERGIZE)
-          { // De-energize system if safety door has been opened.
-            spindle_stop();
-            coolant_stop();
-          }
+          // if (sys.suspend & SUSPEND_ENERGIZE)
+          // { // De-energize system if safety door has been opened.
+          //   spindle_stop();
+          //   coolant_stop();
+          // }
           bit_true(sys.suspend, SUSPEND_ENABLE_READY);
         }
         else

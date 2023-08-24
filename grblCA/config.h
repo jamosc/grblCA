@@ -398,13 +398,13 @@
 #error "Required HOMING_CYCLE_0 not defined."
 #endif
 
-#if defined(USE_SPINDLE_DIR_AS_ENABLE_PIN) && !defined(VARIABLE_SPINDLE)
-#error "USE_SPINDLE_DIR_AS_ENABLE_PIN may only be used with VARIABLE_SPINDLE enabled"
-#endif
+// #if defined(USE_SPINDLE_DIR_AS_ENABLE_PIN) && !defined(VARIABLE_SPINDLE)
+// #error "USE_SPINDLE_DIR_AS_ENABLE_PIN may only be used with VARIABLE_SPINDLE enabled"
+// #endif
 
-#if defined(USE_SPINDLE_DIR_AS_ENABLE_PIN) && !defined(CPU_MAP_ATMEGA328P)
-#error "USE_SPINDLE_DIR_AS_ENABLE_PIN may only be used with a 328p processor"
-#endif
+// #if defined(USE_SPINDLE_DIR_AS_ENABLE_PIN) && !defined(CPU_MAP_ATMEGA328P)
+// #error "USE_SPINDLE_DIR_AS_ENABLE_PIN may only be used with a 328p processor"
+// #endif
 
 // ---------------------------------------------------------------------------------------
 

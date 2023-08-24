@@ -41,8 +41,8 @@
 #define MODAL_GROUP_G13 10 // [G61] Control mode
 
 #define MODAL_GROUP_M4 11 // [M0,M1,M2,M30] Stopping
-#define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
-#define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
+// #define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
+// #define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
 
 // #define OTHER_INPUT_F 14
 // #define OTHER_INPUT_S 15
@@ -64,15 +64,15 @@
 #define NON_MODAL_RESET_COORDINATE_OFFSET 9 // G92.1
 
 // Modal Group G1: Motion modes
-#define MOTION_MODE_SEEK 0                  // G0 (Default: Must be zero)
-#define MOTION_MODE_LINEAR 1                // G1
-#define MOTION_MODE_CW_ARC 2                // G2
-#define MOTION_MODE_CCW_ARC 3               // G3
-#define MOTION_MODE_PROBE_TOWARD 4          // G38.2 NOTE: G38.2, G38.3, G38.4, G38.5 must be sequential. See report_gcode_modes().
-#define MOTION_MODE_PROBE_TOWARD_NO_ERROR 5 // G38.3
-#define MOTION_MODE_PROBE_AWAY 6            // G38.4
-#define MOTION_MODE_PROBE_AWAY_NO_ERROR 7   // G38.5
-#define MOTION_MODE_NONE 8                  // G80
+#define MOTION_MODE_SEEK 0    // G0 (Default: Must be zero)
+#define MOTION_MODE_LINEAR 1  // G1
+#define MOTION_MODE_CW_ARC 2  // G2
+#define MOTION_MODE_CCW_ARC 3 // G3
+// #define MOTION_MODE_PROBE_TOWARD 4          // G38.2 NOTE: G38.2, G38.3, G38.4, G38.5 must be sequential. See report_gcode_modes().
+// #define MOTION_MODE_PROBE_TOWARD_NO_ERROR 5 // G38.3
+// #define MOTION_MODE_PROBE_AWAY 6            // G38.4
+// #define MOTION_MODE_PROBE_AWAY_NO_ERROR 7   // G38.5
+#define MOTION_MODE_NONE 8 // G80
 
 // Modal Group G2: Plane select
 #define PLANE_SELECT_XY 0 // G17 (Default: Must be zero)
@@ -105,15 +105,15 @@
 // Modal Group G13: Control mode
 #define CONTROL_MODE_EXACT_PATH 0 // G61 (Default: Must be zero)
 
-// Modal Group M7: Spindle control
-#define SPINDLE_DISABLE 0    // M5 (Default: Must be zero)
-#define SPINDLE_ENABLE_CW 1  // M3
-#define SPINDLE_ENABLE_CCW 2 // M4
+// // Modal Group M7: Spindle control
+// #define SPINDLE_DISABLE 0    // M5 (Default: Must be zero)
+// #define SPINDLE_ENABLE_CW 1  // M3
+// #define SPINDLE_ENABLE_CCW 2 // M4
 
-// Modal Group M8: Coolant control
-#define COOLANT_DISABLE 0      // M9 (Default: Must be zero)
-#define COOLANT_MIST_ENABLE 1  // M7
-#define COOLANT_FLOOD_ENABLE 2 // M8
+// // Modal Group M8: Coolant control
+// #define COOLANT_DISABLE 0      // M9 (Default: Must be zero)
+// #define COOLANT_MIST_ENABLE 1  // M7
+// #define COOLANT_FLOOD_ENABLE 2 // M8
 
 // Modal Group G8: Tool length offset
 #define TOOL_LENGTH_OFFSET_CANCEL 0         // G49 (Default: Must be zero)
@@ -152,8 +152,8 @@ typedef struct
   uint8_t coord_select; // {G54,G55,G56,G57,G58,G59}
   // uint8_t control;      // {G61} NOTE: Don't track. Only default supported.
   uint8_t program_flow; // {M0,M1,M2,M30}
-  uint8_t coolant;      // {M7,M8,M9}
-  uint8_t spindle;      // {M3,M4,M5}
+  // uint8_t coolant;      // {M7,M8,M9}
+  // uint8_t spindle;      // {M3,M4,M5}
 } gc_modal_t;
 
 typedef struct

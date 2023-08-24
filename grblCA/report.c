@@ -126,9 +126,9 @@ void report_alarm_message(int8_t alarm_code)
   case ALARM_ABORT_CYCLE:
     printPgmString(PSTR("Abort during cycle"));
     break;
-  case ALARM_PROBE_FAIL:
-    printPgmString(PSTR("Probe fail"));
-    break;
+  // case ALARM_PROBE_FAIL:
+  //   printPgmString(PSTR("Probe fail"));
+  //   break;
   case ALARM_HOMING_FAIL:
     printPgmString(PSTR("Homing fail"));
     break;
@@ -267,8 +267,8 @@ void report_grbl_settings()
   printPgmString(PSTR(" (step enable invert, bool)\r\n$5="));
   print_uint8_base10(bit_istrue(settings.flags, BITFLAG_INVERT_LIMIT_PINS));
   printPgmString(PSTR(" (limit pins invert, bool)\r\n$6="));
-  print_uint8_base10(bit_istrue(settings.flags, BITFLAG_INVERT_PROBE_PIN));
-  printPgmString(PSTR(" (probe pin invert, bool)\r\n$10="));
+  // print_uint8_base10(bit_istrue(settings.flags, BITFLAG_INVERT_PROBE_PIN));
+  // printPgmString(PSTR(" (probe pin invert, bool)\r\n$10="));
   print_uint8_base10(settings.status_report_mask);
   printPgmString(PSTR(" (status report mask:"));
   print_uint8_base2(settings.status_report_mask);
@@ -368,26 +368,26 @@ void report_grbl_settings()
 // Prints current probe parameters. Upon a probe command, these parameters are updated upon a
 // successful probe or upon a failed probe with the G38.3 without errors command (if supported).
 // These values are retained until Grbl is power-cycled, whereby they will be re-zeroed.
-void report_probe_parameters()
-{
-  uint8_t i;
-  float print_position[N_AXIS];
+// void report_probe_parameters()
+// {
+//   uint8_t i;
+//   float print_position[N_AXIS];
 
-  // Report in terms of machine position.
-  printPgmString(PSTR("[PRB:"));
-  for (i = 0; i < N_AXIS; i++)
-  {
-    print_position[i] = system_convert_axis_steps_to_mpos(sys.probe_position, i);
-    printFloat_CoordValue(print_position[i]);
-    if (i < (N_AXIS - 1))
-    {
-      printPgmString(PSTR(","));
-    }
-  }
-  printPgmString(PSTR(":"));
-  print_uint8_base10(sys.probe_succeeded);
-  printPgmString(PSTR("]\r\n"));
-}
+//   // Report in terms of machine position.
+//   printPgmString(PSTR("[PRB:"));
+//   for (i = 0; i < N_AXIS; i++)
+//   {
+//     print_position[i] = system_convert_axis_steps_to_mpos(sys.probe_position, i);
+//     printFloat_CoordValue(print_position[i]);
+//     if (i < (N_AXIS - 1))
+//     {
+//       printPgmString(PSTR(","));
+//     }
+//   }
+//   printPgmString(PSTR(":"));
+//   print_uint8_base10(sys.probe_succeeded);
+//   printPgmString(PSTR("]\r\n"));
+// }
 
 // Prints Grbl NGC parameters (coordinate offsets, probing)
 void report_ngc_parameters()
@@ -444,7 +444,7 @@ void report_ngc_parameters()
   printPgmString(PSTR("[TLO:")); // Print tool length offset value
   printFloat_CoordValue(gc_state.tool_length_offset);
   printPgmString(PSTR("]\r\n"));
-  report_probe_parameters(); // Print probe parameters. Not persistent in memory.
+  // report_probe_parameters(); // Print probe parameters. Not persistent in memory.
 }
 
 // Print current gcode parser mode state
@@ -471,7 +471,7 @@ void report_gcode_modes()
     break;
   default:
     printPgmString(PSTR("G38."));
-    print_uint8_base10(gc_state.modal.motion - (MOTION_MODE_PROBE_TOWARD - 2));
+    // print_uint8_base10(gc_state.modal.motion - (MOTION_MODE_PROBE_TOWARD - 2));
   }
 
   printPgmString(PSTR(" G"));
@@ -530,33 +530,33 @@ void report_gcode_modes()
     break;
   }
 
-  switch (gc_state.modal.spindle)
-  {
-  case SPINDLE_ENABLE_CW:
-    printPgmString(PSTR(" M3"));
-    break;
-  case SPINDLE_ENABLE_CCW:
-    printPgmString(PSTR(" M4"));
-    break;
-  case SPINDLE_DISABLE:
-    printPgmString(PSTR(" M5"));
-    break;
-  }
+  //   switch (gc_state.modal.spindle)
+  //   {
+  //   case SPINDLE_ENABLE_CW:
+  //     printPgmString(PSTR(" M3"));
+  //     break;
+  //   case SPINDLE_ENABLE_CCW:
+  //     printPgmString(PSTR(" M4"));
+  //     break;
+  //   case SPINDLE_DISABLE:
+  //     printPgmString(PSTR(" M5"));
+  //     break;
+  //   }
 
-  switch (gc_state.modal.coolant)
-  {
-  case COOLANT_DISABLE:
-    printPgmString(PSTR(" M9"));
-    break;
-  case COOLANT_FLOOD_ENABLE:
-    printPgmString(PSTR(" M8"));
-    break;
-#ifdef ENABLE_M7
-  case COOLANT_MIST_ENABLE:
-    printPgmString(PSTR(" M7"));
-    break;
-#endif
-  }
+  //   switch (gc_state.modal.coolant)
+  //   {
+  //   case COOLANT_DISABLE:
+  //     printPgmString(PSTR(" M9"));
+  //     break;
+  //   case COOLANT_FLOOD_ENABLE:
+  //     printPgmString(PSTR(" M8"));
+  //     break;
+  // #ifdef ENABLE_M7
+  //   case COOLANT_MIST_ENABLE:
+  //     printPgmString(PSTR(" M7"));
+  //     break;
+  // #endif
+  //   }
 
   printPgmString(PSTR(" T"));
   print_uint8_base10(gc_state.tool);
@@ -564,10 +564,10 @@ void report_gcode_modes()
   printPgmString(PSTR(" F"));
   printFloat_RateValue(gc_state.feed_rate);
 
-#ifdef VARIABLE_SPINDLE
-  printPgmString(PSTR(" S"));
-  printFloat_RateValue(gc_state.spindle_speed);
-#endif
+  // #ifdef VARIABLE_SPINDLE
+  //   printPgmString(PSTR(" S"));
+  //   printFloat_RateValue(gc_state.spindle_speed);
+  // #endif
 
   printPgmString(PSTR("]\r\n"));
 }

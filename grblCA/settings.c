@@ -305,16 +305,16 @@ uint8_t settings_store_global_setting(uint8_t parameter, float value)
         settings.flags &= ~BITFLAG_INVERT_LIMIT_PINS;
       }
       break;
-    case 6: // Reset to ensure change. Immediate re-init may cause problems.
-      if (int_value)
-      {
-        settings.flags |= BITFLAG_INVERT_PROBE_PIN;
-      }
-      else
-      {
-        settings.flags &= ~BITFLAG_INVERT_PROBE_PIN;
-      }
-      break;
+    // case 6: // Reset to ensure change. Immediate re-init may cause problems.
+    //   if (int_value)
+    //   {
+    //     settings.flags |= BITFLAG_INVERT_PROBE_PIN;
+    //   }
+    //   else
+    //   {
+    //     settings.flags &= ~BITFLAG_INVERT_PROBE_PIN;
+    //   }
+    //   break;
     case 10:
       settings.status_report_mask = int_value;
       break;
@@ -453,7 +453,7 @@ uint16_t get_direction_pin_mask(uint8_t axis_idx)
 }
 
 // Returns limit pin mask according to Grbl internal axis indexing.
-uint8_t get_limit_pin_mask(uint8_t axis_idx)
+uint16_t get_limit_pin_mask(uint8_t axis_idx)
 {
   if (axis_idx == X_AXIS)
   {
