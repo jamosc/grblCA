@@ -20,10 +20,10 @@
 */
 
 #ifndef stepper_h
-#define stepper_h 
+#define stepper_h
 
 #ifndef SEGMENT_BUFFER_SIZE
-  #define SEGMENT_BUFFER_SIZE 6
+#define SEGMENT_BUFFER_SIZE 6
 #endif
 
 // Initialize and setup the stepper motor subsystem
@@ -38,9 +38,9 @@ void st_go_idle();
 // Generate the step and direction port invert masks.
 void st_generate_step_dir_invert_masks();
 
-// Reset the stepper subsystem variables       
+// Reset the stepper subsystem variables
 void st_reset();
-             
+
 // Reloads step segment buffer. Called continuously by realtime execution system.
 void st_prep_buffer();
 

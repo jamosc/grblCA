@@ -26,10 +26,10 @@
 // NOTE: Not a problem except for extreme cases, but the line buffer size can be too small
 // and g-code blocks can get truncated. Officially, the g-code standards support up to 256
 // characters. In future versions, this will be increased, when we know how much extra
-// memory space we can invest into here or we re-write the g-code parser not to have this 
+// memory space we can invest into here or we re-write the g-code parser not to have this
 // buffer.
 #ifndef LINE_BUFFER_SIZE
-  #define LINE_BUFFER_SIZE 80
+#define LINE_BUFFER_SIZE 80
 #endif
 
 // Starts Grbl main loop. It handles all incoming characters from the serial port and executes
@@ -43,7 +43,7 @@ void protocol_execute_realtime();
 // void protocol_cycle_start();
 
 // Reinitializes the buffer after a feed hold for a resume.
-// void protocol_cycle_reinitialize(); 
+// void protocol_cycle_reinitialize();
 
 // Initiates a feed hold of the running program
 // void protocol_feed_hold();

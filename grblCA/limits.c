@@ -69,7 +69,7 @@ void limits_disable()
 uint8_t limits_get_state()
 {
   uint8_t limit_state = 0;
-  uint8_t pin = (LIMIT_PIN & LIMIT_MASK);
+  uint16_t pin = (LIMIT_PIN & LIMIT_MASK);
 #ifdef INVERT_LIMIT_PIN_MASK
   pin ^= INVERT_LIMIT_PIN_MASK;
 #endif
