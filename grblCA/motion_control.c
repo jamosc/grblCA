@@ -280,8 +280,8 @@ void mc_homing_cycle(uint8_t cycle_mask)
 //   // Setup and queue probing motion. Auto cycle-start should not start the cycle.
 //   mc_line(target, pl_data);
 
-//   // Activate the probing state monitor in the stepper module.
-//   sys_probe_state = PROBE_ACTIVE;
+  // Activate the probing state monitor in the stepper module.
+  sys_probe_state = PROBE_ACTIVE;
 
 //   // Perform probing cycle. Wait here until probe is triggered or motion completes.
 //   system_set_exec_state_flag(EXEC_CYCLE_START);
@@ -290,7 +290,7 @@ void mc_homing_cycle(uint8_t cycle_mask)
 //     if (sys.abort) { return(GC_PROBE_ABORT); } // Check for system abort
 //   } while (sys.state != STATE_IDLE);
 
-//   // Probing cycle complete!
+  // Probing cycle complete!
 
 //   // Set state variables and error out, if the probe failed and cycle with error is enabled.
 //   if (sys_probe_state == PROBE_ACTIVE) {

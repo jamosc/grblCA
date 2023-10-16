@@ -353,7 +353,7 @@ return ((1 << A_DIRECTION_BIT));
 }
 
 // Returns limit pin mask according to Grbl internal axis indexing.
-uint16_t get_limit_pin_mask(uint8_t axis_idx)
+uint8_t get_limit_pin_mask(uint8_t axis_idx)
 {
   if (axis_idx == X_AXIS)
   {
