@@ -41,20 +41,10 @@
 #define MODAL_GROUP_G12 9 // [G54,G55,G56,G57,G58,G59] Coordinate system selection
 #define MODAL_GROUP_G13 10 // [G61] Control mode
 
-<<<<<<< HEAD
 #define MODAL_GROUP_M4 11  // [M0,M1,M2,M30] Stopping
 // #define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
 // #define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
 #define MODAL_GROUP_M9 14 // [M56] Override control
-=======
-#define MODAL_GROUP_M4 11 // [M0,M1,M2,M30] Stopping
-#define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
-#define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
-
-// #define OTHER_INPUT_F 14
-// #define OTHER_INPUT_S 15
-// #define OTHER_INPUT_T 16
->>>>>>> parent of e4a4817 (cleaning incompatibilities)
 
 // Define command actions for within execution-type modal groups (motion, stopping, non-modal). Used
 // internally by the parser to know which command to execute.
@@ -76,7 +66,6 @@
 #define NON_MODAL_RESET_COORDINATE_OFFSET 102 //G92.1 (Do not alter value)
 
 // Modal Group G1: Motion modes
-<<<<<<< HEAD
 #define MOTION_MODE_SEEK 0 // G0 (Default: Must be zero)
 #define MOTION_MODE_LINEAR 1 // G1 (Do not alter value)
 #define MOTION_MODE_CW_ARC 2  // G2 (Do not alter value)
@@ -86,17 +75,6 @@
 // #define MOTION_MODE_PROBE_AWAY 142 // G38.4 (Do not alter value)
 // #define MOTION_MODE_PROBE_AWAY_NO_ERROR 143 // G38.5 (Do not alter value)
 #define MOTION_MODE_NONE 80 // G80 (Do not alter value)
-=======
-#define MOTION_MODE_SEEK 0                  // G0 (Default: Must be zero)
-#define MOTION_MODE_LINEAR 1                // G1
-#define MOTION_MODE_CW_ARC 2                // G2
-#define MOTION_MODE_CCW_ARC 3               // G3
-#define MOTION_MODE_PROBE_TOWARD 4          // G38.2 NOTE: G38.2, G38.3, G38.4, G38.5 must be sequential. See report_gcode_modes().
-#define MOTION_MODE_PROBE_TOWARD_NO_ERROR 5 // G38.3
-#define MOTION_MODE_PROBE_AWAY 6            // G38.4
-#define MOTION_MODE_PROBE_AWAY_NO_ERROR 7   // G38.5
-#define MOTION_MODE_NONE 8                  // G80
->>>>>>> parent of e4a4817 (cleaning incompatibilities)
 
 // Modal Group G2: Plane select
 #define PLANE_SELECT_XY 0 // G17 (Default: Must be zero)
@@ -213,16 +191,10 @@ typedef struct {
   uint8_t tool_length;     // {G43.1,G49}
   uint8_t coord_select;    // {G54,G55,G56,G57,G58,G59}
   // uint8_t control;      // {G61} NOTE: Don't track. Only default supported.
-<<<<<<< HEAD
   uint8_t program_flow;    // {M0,M1,M2,M30}
   // uint8_t coolant;         // {M7,M8,M9}
   // uint8_t spindle;         // {M3,M4,M5}
   uint8_t override;        // {M56}
-=======
-  uint8_t program_flow; // {M0,M1,M2,M30}
-  uint8_t coolant;      // {M7,M8,M9}
-  uint8_t spindle;      // {M3,M4,M5}
->>>>>>> parent of e4a4817 (cleaning incompatibilities)
 } gc_modal_t;
 
 typedef struct {
