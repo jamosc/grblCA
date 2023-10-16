@@ -64,8 +64,8 @@
 #define ALARM_HARD_LIMIT_ERROR      EXEC_ALARM_HARD_LIMIT
 #define ALARM_SOFT_LIMIT_ERROR      EXEC_ALARM_SOFT_LIMIT
 #define ALARM_ABORT_CYCLE           EXEC_ALARM_ABORT_CYCLE
-#define ALARM_PROBE_FAIL_INITIAL    EXEC_ALARM_PROBE_FAIL_INITIAL
-#define ALARM_PROBE_FAIL_CONTACT    EXEC_ALARM_PROBE_FAIL_CONTACT
+// #define ALARM_PROBE_FAIL_INITIAL    EXEC_ALARM_PROBE_FAIL_INITIAL
+// #define ALARM_PROBE_FAIL_CONTACT    EXEC_ALARM_PROBE_FAIL_CONTACT
 #define ALARM_HOMING_FAIL_RESET     EXEC_ALARM_HOMING_FAIL_RESET
 #define ALARM_HOMING_FAIL_DOOR      EXEC_ALARM_HOMING_FAIL_DOOR
 #define ALARM_HOMING_FAIL_PULLOFF   EXEC_ALARM_HOMING_FAIL_PULLOFF
@@ -81,7 +81,7 @@
 #define MESSAGE_CHECK_LIMITS 7
 #define MESSAGE_PROGRAM_END 8
 #define MESSAGE_RESTORE_DEFAULTS 9
-#define MESSAGE_SPINDLE_RESTORE 10
+// #define MESSAGE_SPINDLE_RESTORE 10
 #define MESSAGE_SLEEP_MODE 11
 
 // Prints system status messages.
@@ -108,8 +108,8 @@ void report_echo_line_received(char *line);
 // Prints realtime status report
 void report_realtime_status();
 
-// Prints recorded probe position
-void report_probe_parameters();
+// // Prints recorded probe position
+// void report_probe_parameters();
 
 // Prints Grbl NGC parameters (coordinate offsets, probe)
 void report_ngc_parameters();

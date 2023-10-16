@@ -42,8 +42,8 @@
 #define MODAL_GROUP_G13 10 // [G61] Control mode
 
 #define MODAL_GROUP_M4 11  // [M0,M1,M2,M30] Stopping
-#define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
-#define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
+// #define MODAL_GROUP_M7 12 // [M3,M4,M5] Spindle turning
+// #define MODAL_GROUP_M8 13 // [M7,M8,M9] Coolant control
 #define MODAL_GROUP_M9 14 // [M56] Override control
 
 // Define command actions for within execution-type modal groups (motion, stopping, non-modal). Used
@@ -70,10 +70,10 @@
 #define MOTION_MODE_LINEAR 1 // G1 (Do not alter value)
 #define MOTION_MODE_CW_ARC 2  // G2 (Do not alter value)
 #define MOTION_MODE_CCW_ARC 3  // G3 (Do not alter value)
-#define MOTION_MODE_PROBE_TOWARD 140 // G38.2 (Do not alter value)
-#define MOTION_MODE_PROBE_TOWARD_NO_ERROR 141 // G38.3 (Do not alter value)
-#define MOTION_MODE_PROBE_AWAY 142 // G38.4 (Do not alter value)
-#define MOTION_MODE_PROBE_AWAY_NO_ERROR 143 // G38.5 (Do not alter value)
+// #define MOTION_MODE_PROBE_TOWARD 140 // G38.2 (Do not alter value)
+// #define MOTION_MODE_PROBE_TOWARD_NO_ERROR 141 // G38.3 (Do not alter value)
+// #define MOTION_MODE_PROBE_AWAY 142 // G38.4 (Do not alter value)
+// #define MOTION_MODE_PROBE_AWAY_NO_ERROR 143 // G38.5 (Do not alter value)
 #define MOTION_MODE_NONE 80 // G80 (Do not alter value)
 
 // Modal Group G2: Plane select
@@ -157,23 +157,23 @@
 #define GC_UPDATE_POS_NONE     2
 
 // Define probe cycle exit states and assign proper position updating.
-#define GC_PROBE_FOUND      GC_UPDATE_POS_SYSTEM
-#define GC_PROBE_ABORT      GC_UPDATE_POS_NONE
-#define GC_PROBE_FAIL_INIT  GC_UPDATE_POS_NONE
-#define GC_PROBE_FAIL_END   GC_UPDATE_POS_TARGET
-#ifdef SET_CHECK_MODE_PROBE_TO_START
-  #define GC_PROBE_CHECK_MODE   GC_UPDATE_POS_NONE  
-#else
-  #define GC_PROBE_CHECK_MODE   GC_UPDATE_POS_TARGET
-#endif
+// #define GC_PROBE_FOUND      GC_UPDATE_POS_SYSTEM
+// #define GC_PROBE_ABORT      GC_UPDATE_POS_NONE
+// #define GC_PROBE_FAIL_INIT  GC_UPDATE_POS_NONE
+// #define GC_PROBE_FAIL_END   GC_UPDATE_POS_TARGET
+// #ifdef SET_CHECK_MODE_PROBE_TO_START
+//   #define GC_PROBE_CHECK_MODE   GC_UPDATE_POS_NONE  
+// #else
+//   #define GC_PROBE_CHECK_MODE   GC_UPDATE_POS_TARGET
+// #endif
 
 // Define gcode parser flags for handling special cases.
 #define GC_PARSER_NONE                  0 // Must be zero.
 #define GC_PARSER_JOG_MOTION            bit(0)
 #define GC_PARSER_CHECK_MANTISSA        bit(1)
 #define GC_PARSER_ARC_IS_CLOCKWISE      bit(2)
-#define GC_PARSER_PROBE_IS_AWAY         bit(3)
-#define GC_PARSER_PROBE_IS_NO_ERROR     bit(4)
+// #define GC_PARSER_PROBE_IS_AWAY         bit(3)
+// #define GC_PARSER_PROBE_IS_NO_ERROR     bit(4)
 #define GC_PARSER_LASER_FORCE_SYNC      bit(5)
 #define GC_PARSER_LASER_DISABLE         bit(6)
 #define GC_PARSER_LASER_ISMOTION        bit(7)
@@ -192,8 +192,8 @@ typedef struct {
   uint8_t coord_select;    // {G54,G55,G56,G57,G58,G59}
   // uint8_t control;      // {G61} NOTE: Don't track. Only default supported.
   uint8_t program_flow;    // {M0,M1,M2,M30}
-  uint8_t coolant;         // {M7,M8,M9}
-  uint8_t spindle;         // {M3,M4,M5}
+  // uint8_t coolant;         // {M7,M8,M9}
+  // uint8_t spindle;         // {M3,M4,M5}
   uint8_t override;        // {M56}
 } gc_modal_t;
 
@@ -205,7 +205,7 @@ typedef struct {
   float p;         // G10 or dwell parameters
   // float q;      // G82 peck drilling
   float r;         // Arc radius
-  float s;         // Spindle speed
+  // float s;         // Spindle speed
   uint8_t t;       // Tool selection
   float xyz[4];    // X,Y,Z Translational axes
 } gc_values_t;
@@ -214,7 +214,7 @@ typedef struct {
 typedef struct {
   gc_modal_t modal;
 
-  float spindle_speed;          // RPM
+  // float spindle_speed;          // RPM
   float feed_rate;              // Millimeters/min
   uint8_t tool;                 // Tracks tool number. NOT USED.
   int32_t line_number;          // Last line number sent

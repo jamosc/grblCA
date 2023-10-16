@@ -41,8 +41,8 @@
 #define EXEC_ALARM_HARD_LIMIT                 1
 #define EXEC_ALARM_SOFT_LIMIT                 2
 #define EXEC_ALARM_ABORT_CYCLE                3
-#define EXEC_ALARM_PROBE_FAIL_INITIAL         4
-#define EXEC_ALARM_PROBE_FAIL_CONTACT         5
+// #define EXEC_ALARM_PROBE_FAIL_INITIAL         4
+// #define EXEC_ALARM_PROBE_FAIL_CONTACT         5
 #define EXEC_ALARM_HOMING_FAIL_RESET          6
 #define EXEC_ALARM_HOMING_FAIL_DOOR           7
 #define EXEC_ALARM_HOMING_FAIL_PULLOFF        8
@@ -61,14 +61,14 @@
 #define EXEC_RAPID_OVR_LOW          bit(7)
 // #define EXEC_RAPID_OVR_EXTRA_LOW   bit(*) // *NOT SUPPORTED*
 
-#define EXEC_SPINDLE_OVR_RESET         bit(0)
-#define EXEC_SPINDLE_OVR_COARSE_PLUS   bit(1)
-#define EXEC_SPINDLE_OVR_COARSE_MINUS  bit(2)
-#define EXEC_SPINDLE_OVR_FINE_PLUS     bit(3)
-#define EXEC_SPINDLE_OVR_FINE_MINUS    bit(4)
-#define EXEC_SPINDLE_OVR_STOP          bit(5)
-#define EXEC_COOLANT_FLOOD_OVR_TOGGLE  bit(6)
-#define EXEC_COOLANT_MIST_OVR_TOGGLE   bit(7)
+// #define EXEC_SPINDLE_OVR_RESET         bit(0)
+// #define EXEC_SPINDLE_OVR_COARSE_PLUS   bit(1)
+// #define EXEC_SPINDLE_OVR_COARSE_MINUS  bit(2)
+// #define EXEC_SPINDLE_OVR_FINE_PLUS     bit(3)
+// #define EXEC_SPINDLE_OVR_FINE_MINUS    bit(4)
+// #define EXEC_SPINDLE_OVR_STOP          bit(5)
+// #define EXEC_COOLANT_FLOOD_OVR_TOGGLE  bit(6)
+// #define EXEC_COOLANT_MIST_OVR_TOGGLE   bit(7)
 
 // Define system state bit map. The state variable primarily tracks the individual functions
 // of Grbl to manage each without overlapping. It is also used as a messaging flag for
@@ -99,7 +99,7 @@
 #define STEP_CONTROL_END_MOTION           bit(0)
 #define STEP_CONTROL_EXECUTE_HOLD         bit(1)
 #define STEP_CONTROL_EXECUTE_SYS_MOTION   bit(2)
-#define STEP_CONTROL_UPDATE_SPINDLE_PWM   bit(3)
+// #define STEP_CONTROL_UPDATE_SPINDLE_PWM   bit(3)
 
 // Define control pin index for Grbl internal use. Pin maps may change, but these values don't.
 #ifdef ENABLE_SAFETY_DOOR_INPUT_PIN
@@ -116,11 +116,11 @@
 #endif
 
 // Define spindle stop override control states.
-#define SPINDLE_STOP_OVR_DISABLED       0  // Must be zero.
-#define SPINDLE_STOP_OVR_ENABLED        bit(0)
-#define SPINDLE_STOP_OVR_INITIATE       bit(1)
-#define SPINDLE_STOP_OVR_RESTORE        bit(2)
-#define SPINDLE_STOP_OVR_RESTORE_CYCLE  bit(3)
+// #define SPINDLE_STOP_OVR_DISABLED       0  // Must be zero.
+// #define SPINDLE_STOP_OVR_ENABLED        bit(0)
+// #define SPINDLE_STOP_OVR_INITIATE       bit(1)
+// #define SPINDLE_STOP_OVR_RESTORE        bit(2)
+// #define SPINDLE_STOP_OVR_RESTORE_CYCLE  bit(3)
 
 
 // Define global system variables
@@ -130,35 +130,35 @@ typedef struct {
   uint8_t suspend;             // System suspend bitflag variable that manages holds, cancels, and safety door.
   uint8_t soft_limit;          // Tracks soft limit errors for the state machine. (boolean)
   uint8_t step_control;        // Governs the step segment generator depending on system state.
-  uint8_t probe_succeeded;     // Tracks if last probing cycle was successful.
+  // uint8_t probe_succeeded;     // Tracks if last probing cycle was successful.
   uint8_t homing_axis_lock;    // Locks axes when limits engage. Used as an axis motion mask in the stepper ISR.
   #ifdef ENABLE_DUAL_AXIS
     uint8_t homing_axis_lock_dual;
   #endif
   uint8_t f_override;          // Feed rate override value in percent
   uint8_t r_override;          // Rapids override value in percent
-  uint8_t spindle_speed_ovr;   // Spindle speed value in percent
-  uint8_t spindle_stop_ovr;    // Tracks spindle stop override states
+  // uint8_t spindle_speed_ovr;   // Spindle speed value in percent
+  // uint8_t spindle_stop_ovr;    // Tracks spindle stop override states
   uint8_t report_ovr_counter;  // Tracks when to add override data to status reports.
   uint8_t report_wco_counter;  // Tracks when to add work coordinate offset data to status reports.
   #ifdef ENABLE_PARKING_OVERRIDE_CONTROL
     uint8_t override_ctrl;     // Tracks override control states.
   #endif
-  #ifdef VARIABLE_SPINDLE
-    float spindle_speed;
-  #endif
+  // #ifdef VARIABLE_SPINDLE
+  //   float spindle_speed;
+  // #endif
 } system_t;
 extern system_t sys;
 
 // NOTE: These position variables may need to be declared as volatiles, if problems arise.
 extern int32_t sys_position[N_AXIS];      // Real-time machine (aka home) position vector in steps.
-extern int32_t sys_probe_position[N_AXIS]; // Last probe position in machine coordinates and steps.
+// extern int32_t sys_probe_position[N_AXIS]; // Last probe position in machine coordinates and steps.
 
-extern volatile uint8_t sys_probe_state;   // Probing state value.  Used to coordinate the probing cycle with stepper ISR.
+// extern volatile uint8_t sys_probe_state;   // Probing state value.  Used to coordinate the probing cycle with stepper ISR.
 extern volatile uint8_t sys_rt_exec_state;   // Global realtime executor bitflag variable for state management. See EXEC bitmasks.
 extern volatile uint8_t sys_rt_exec_alarm;   // Global realtime executor bitflag variable for setting various alarms.
 extern volatile uint8_t sys_rt_exec_motion_override; // Global realtime executor bitflag variable for motion-based overrides.
-extern volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bitflag variable for spindle/coolant overrides.
+// extern volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bitflag variable for spindle/coolant overrides.
 
 #ifdef DEBUG
   #define EXEC_DEBUG_REPORT  bit(0)

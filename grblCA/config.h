@@ -73,14 +73,14 @@
 #define CMD_RAPID_OVR_MEDIUM 0x96
 #define CMD_RAPID_OVR_LOW 0x97
 // #define CMD_RAPID_OVR_EXTRA_LOW 0x98 // *NOT SUPPORTED*
-#define CMD_SPINDLE_OVR_RESET 0x99      // Restores spindle override value to 100%.
-#define CMD_SPINDLE_OVR_COARSE_PLUS 0x9A
-#define CMD_SPINDLE_OVR_COARSE_MINUS 0x9B
-#define CMD_SPINDLE_OVR_FINE_PLUS 0x9C
-#define CMD_SPINDLE_OVR_FINE_MINUS 0x9D
-#define CMD_SPINDLE_OVR_STOP 0x9E
-#define CMD_COOLANT_FLOOD_OVR_TOGGLE 0xA0
-#define CMD_COOLANT_MIST_OVR_TOGGLE 0xA1
+// #define CMD_SPINDLE_OVR_RESET 0x99      // Restores spindle override value to 100%.
+// #define CMD_SPINDLE_OVR_COARSE_PLUS 0x9A
+// #define CMD_SPINDLE_OVR_COARSE_MINUS 0x9B
+// #define CMD_SPINDLE_OVR_FINE_PLUS 0x9C
+// #define CMD_SPINDLE_OVR_FINE_MINUS 0x9D
+// #define CMD_SPINDLE_OVR_STOP 0x9E
+// #define CMD_COOLANT_FLOOD_OVR_TOGGLE 0xA0
+// #define CMD_COOLANT_MIST_OVR_TOGGLE 0xA1
 
 // If homing is enabled, homing init lock sets Grbl into an alarm state upon power up. This forces
 // the user to perform the homing cycle (or override the locks) before doing anything else. This is
@@ -156,7 +156,7 @@
 // Upon a successful probe cycle, this option provides immediately feedback of the probe coordinates
 // through an automatically generated message. If disabled, users can still access the last probe
 // coordinates through Grbl '$#' print parameters.
-#define MESSAGE_PROBE_COORDINATES // Enabled by default. Comment to disable.
+// #define MESSAGE_PROBE_COORDINATES // Enabled by default. Comment to disable.
 
 // Enables a second coolant control pin via the mist coolant g-code command M7 on the Arduino Uno
 // analog pin 4. Only use this option if you require a second coolant control pin.
@@ -171,8 +171,8 @@
 
 // After the safety door switch has been toggled and restored, this setting sets the power-up delay
 // between restoring the spindle and coolant and resuming the cycle.
-#define SAFETY_DOOR_SPINDLE_DELAY 4.0 // Float (seconds)
-#define SAFETY_DOOR_COOLANT_DELAY 1.0 // Float (seconds)
+// #define SAFETY_DOOR_SPINDLE_DELAY 4.0 // Float (seconds)
+// #define SAFETY_DOOR_COOLANT_DELAY 1.0 // Float (seconds)
 
 // Enable CoreXY kinematics. Use ONLY with CoreXY machines.
 // IMPORTANT: If homing is enabled, you must reconfigure the homing cycle #defines above to
@@ -244,11 +244,11 @@
 #define RAPID_OVERRIDE_LOW       25 // Percent of rapid (1-99). Usually 25%.
 // #define RAPID_OVERRIDE_EXTRA_LOW 5 // *NOT SUPPORTED* Percent of rapid (1-99). Usually 5%.
 
-#define DEFAULT_SPINDLE_SPEED_OVERRIDE    100 // 100%. Don't change this value.
-#define MAX_SPINDLE_SPEED_OVERRIDE        200 // Percent of programmed spindle speed (100-255). Usually 200%.
-#define MIN_SPINDLE_SPEED_OVERRIDE         10 // Percent of programmed spindle speed (1-100). Usually 10%.
-#define SPINDLE_OVERRIDE_COARSE_INCREMENT  10 // (1-99). Usually 10%.
-#define SPINDLE_OVERRIDE_FINE_INCREMENT     1 // (1-99). Usually 1%.
+// #define DEFAULT_SPINDLE_SPEED_OVERRIDE    100 // 100%. Don't change this value.
+// #define MAX_SPINDLE_SPEED_OVERRIDE        200 // Percent of programmed spindle speed (100-255). Usually 200%.
+// #define MIN_SPINDLE_SPEED_OVERRIDE         10 // Percent of programmed spindle speed (1-100). Usually 10%.
+// #define SPINDLE_OVERRIDE_COARSE_INCREMENT  10 // (1-99). Usually 10%.
+// #define SPINDLE_OVERRIDE_FINE_INCREMENT     1 // (1-99). Usually 1%.
 
 // When a M2 or M30 program end command is executed, most g-code states are restored to their defaults.
 // This compile-time option includes the restoring of the feed, rapid, and spindle speed override values
