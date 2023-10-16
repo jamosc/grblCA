@@ -2,7 +2,7 @@
   print.c - Functions for formatting output strings
   Part of Grbl
 
-  Copyright (c) 2011-2015 Sungeun K. Jeon
+  Copyright (c) 2011-2016 Sungeun K. Jeon for Gnea Research LLC
   Copyright (c) 2009-2011 Simen Svale Skogsrud
 
   Grbl is free software: you can redistribute it and/or modify
@@ -21,11 +21,13 @@
 
 #include "grbl.h"
 
+
 void printString(const char *s)
 {
   while (*s)
     serial_write(*s++);
 }
+
 
 // Print a string stored in PGM-memory
 void printPgmString(const char *s)
@@ -34,6 +36,7 @@ void printPgmString(const char *s)
   while ((c = pgm_read_byte_near(s++)))
     serial_write(c);
 }
+
 
 // void printIntegerInBase(unsigned long n, unsigned long base)
 // {
@@ -56,51 +59,44 @@ void printPgmString(const char *s)
 // 			'A' + buf[i - 1] - 10);
 // }
 
-// Prints an uint8 variable with base and number of desired digits.
-void print_unsigned_int8(uint8_t n, uint8_t base, uint8_t digits)
-{
-  unsigned char buf[digits];
-  uint8_t i = 0;
-
-  for (; i < digits; i++)
-  {
-    buf[i] = n % base;
-    n /= base;
-  }
-
-  for (; i > 0; i--)
-    serial_write('0' + buf[i - 1]);
-}
-
-// Prints an uint8 variable in base 2.
-void print_uint8_base2(uint8_t n)
-{
-  print_unsigned_int8(n, 2, 8);
-}
 
 // Prints an uint8 variable in base 10.
 void print_uint8_base10(uint8_t n)
 {
-  uint8_t digits;
-  if (n < 10)
-  {
-    digits = 1;
+  uint8_t digit_a = 0;
+  uint8_t digit_b = 0;
+  if (n >= 100) { // 100-255
+    digit_a = '0' + n % 10;
+    n /= 10;
   }
-  else if (n < 100)
-  {
-    digits = 2;
+  if (n >= 10) { // 10-99
+    digit_b = '0' + n % 10;
+    n /= 10;
   }
-  else
-  {
-    digits = 3;
-  }
-  print_unsigned_int8(n, 10, digits);
+  serial_write('0' + n);
+  if (digit_b) { serial_write(digit_b); }
+  if (digit_a) { serial_write(digit_a); }
 }
+
+
+// Prints an uint8 variable in base 2 with desired number of desired digits.
+void print_uint8_base2_ndigit(uint8_t n, uint8_t digits) {
+  unsigned char buf[digits];
+  uint8_t i = 0;
+
+  for (; i < digits; i++) {
+      buf[i] = n % 2 ;
+      n /= 2;
+  }
+
+  for (; i > 0; i--)
+      serial_write('0' + buf[i - 1]);
+}
+
 
 void print_uint32_base10(uint32_t n)
 {
-  if (n == 0)
-  {
+  if (n == 0) {
     serial_write('0');
     return;
   }
@@ -108,28 +104,26 @@ void print_uint32_base10(uint32_t n)
   unsigned char buf[10];
   uint8_t i = 0;
 
-  while (n > 0)
-  {
+  while (n > 0) {
     buf[i++] = n % 10;
     n /= 10;
   }
 
   for (; i > 0; i--)
-    serial_write('0' + buf[i - 1]);
+    serial_write('0' + buf[i-1]);
 }
+
 
 void printInteger(long n)
 {
-  if (n < 0)
-  {
+  if (n < 0) {
     serial_write('-');
     print_uint32_base10(-n);
-  }
-  else
-  {
+  } else {
     print_uint32_base10(n);
   }
 }
+
 
 // Convert float to string by immediately converting to a long integer, which contains
 // more digits than a float. Number of decimal places, which are tracked by a counter,
@@ -138,83 +132,61 @@ void printInteger(long n)
 // techniques are actually just slightly slower. Found this out the hard way.
 void printFloat(float n, uint8_t decimal_places)
 {
-  if (n < 0)
-  {
+  if (n < 0) {
     serial_write('-');
     n = -n;
   }
 
   uint8_t decimals = decimal_places;
-  while (decimals >= 2)
-  { // Quickly convert values expected to be E0 to E-4.
+  while (decimals >= 2) { // Quickly convert values expected to be E0 to E-4.
     n *= 100;
     decimals -= 2;
   }
-  if (decimals)
-  {
-    n *= 10;
-  }
+  if (decimals) { n *= 10; }
   n += 0.5; // Add rounding factor. Ensures carryover through entire value.
 
   // Generate digits backwards and store in string.
-  unsigned char buf[10];
+  unsigned char buf[13];
   uint8_t i = 0;
   uint32_t a = (long)n;
-  buf[decimal_places] = '.'; // Place decimal point, even if decimal places are zero.
-  while (a > 0)
-  {
-    if (i == decimal_places)
-    {
-      i++;
-    }                          // Skip decimal point location
+  while(a > 0) {
     buf[i++] = (a % 10) + '0'; // Get digit
     a /= 10;
   }
-  while (i < decimal_places)
-  {
-    buf[i++] = '0'; // Fill in zeros to decimal point for (n < 1)
+  while (i < decimal_places) {
+     buf[i++] = '0'; // Fill in zeros to decimal point for (n < 1)
   }
-  if (i == decimal_places)
-  { // Fill in leading zero, if needed.
-    i++;
+  if (i == decimal_places) { // Fill in leading zero, if needed.
     buf[i++] = '0';
   }
 
   // Print the generated string.
-  for (; i > 0; i--)
-    serial_write(buf[i - 1]);
+  for (; i > 0; i--) {
+    if (i == decimal_places) { serial_write('.'); } // Insert decimal point in right place.
+    serial_write(buf[i-1]);
+  }
 }
+
 
 // Floating value printing handlers for special variables types used in Grbl and are defined
 // in the config.h.
 //  - CoordValue: Handles all position or coordinate values in inches or mm reporting.
 //  - RateValue: Handles feed rate and current velocity in inches or mm reporting.
-//  - SettingValue: Handles all floating point settings values (always in mm.)
-void printFloat_CoordValue(float n)
-{
-  if (bit_istrue(settings.flags, BITFLAG_REPORT_INCHES))
-  {
-    printFloat(n * INCH_PER_MM, N_DECIMAL_COORDVALUE_INCH);
-  }
-  else
-  {
-    printFloat(n, N_DECIMAL_COORDVALUE_MM);
+void printFloat_CoordValue(float n) {
+  if (bit_istrue(settings.flags,BITFLAG_REPORT_INCHES)) {
+    printFloat(n*INCH_PER_MM,N_DECIMAL_COORDVALUE_INCH);
+  } else {
+    printFloat(n,N_DECIMAL_COORDVALUE_MM);
   }
 }
 
-void printFloat_RateValue(float n)
-{
-  if (bit_istrue(settings.flags, BITFLAG_REPORT_INCHES))
-  {
-    printFloat(n * INCH_PER_MM, N_DECIMAL_RATEVALUE_INCH);
-  }
-  else
-  {
-    printFloat(n, N_DECIMAL_RATEVALUE_MM);
+void printFloat_RateValue(float n) {
+  if (bit_istrue(settings.flags,BITFLAG_REPORT_INCHES)) {
+    printFloat(n*INCH_PER_MM,N_DECIMAL_RATEVALUE_INCH);
+  } else {
+    printFloat(n,N_DECIMAL_RATEVALUE_MM);
   }
 }
-
-void printFloat_SettingValue(float n) { printFloat(n, N_DECIMAL_SETTINGVALUE); }
 
 // Debug tool to print free memory in bytes at the called point.
 // NOTE: Keep commented unless using. Part of this function always gets compiled in.
